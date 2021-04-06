@@ -5,6 +5,7 @@ module.exports = client => {
     client.user.setActivity(`${client.user.username}`, { type: "WATCHING"}) //first parameter, is the status, second is an object with type which can be: "PLAYING", "WATCHING", "LISTENING", "STREAMING" (where you need to add a , and then url: "https://twitch.tv/#")
     const embed = new Discord.MessageEmbed()
     .setTitle(`✅ | ${client.user.tag} en ligne `)
+    .setTimestamp()
     .setColor("BLUE")
     const log = new Discord.MessageEmbed()
     .setTitle(`Démarrage du bot ${client.user.username}`)
