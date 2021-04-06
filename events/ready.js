@@ -12,6 +12,7 @@ module.exports = client => {
     .setTimestamp()
     .setDescription(`✅ | ${client.user.tag} en ligne `)
     .setColor("BLUE")
+    .setFooter("Dernier démarrage ")
     client.channels.cache.get("826865550666891282").bulkDelete(1)
     client.channels.cache.get("826865550666891282").send(embed)
     client.channels.cache.get("828915153432084510").send(log)

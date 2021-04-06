@@ -2,10 +2,9 @@
 const Discord = require("discord.js")
 module.exports = client => {
     console.log(`Reconnceting at ${new Date()}.`)
+    client.channels.cache.get("826865550666891282").bulkDelete(1)
     const log = new Discord.MessageEmbed()
-    .setTitle(`Reconnection de ${client.user.username}| ${new Date()}`)
+    .setTitle(":white_check_mark: | TECHNCODE#3529 en cours de reconnection")
     .setTimestamp()
-    .setDescription(`⚠️ | ${client.user.tag} en cours de reconnection`) 
-    .setColor("BLUE")
-    client.channels.cache.get("828915153432084510").send(log)
+    client.channels.cache.get("826865550666891282").send(log)
 }
