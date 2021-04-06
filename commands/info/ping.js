@@ -1,4 +1,5 @@
 //Here the command starts
+const Discord = require("discord.js")
 module.exports = {
     //definition
     name: "ping", //the name of the command 
@@ -15,5 +16,15 @@ module.exports = {
         //editing it to the actual latency
         msg.edit(`🏓 Pong!
         Ping is ${Math.round(client.ws.ping)}ms`);
+        const log = new Discord.MessageEmbed()
+        .setTitle(`Utilisation de la commande Ping | ${client.user.username}`)
+        .setTimestamp()
+        .setDescription(`La commande ping a été utilisée`) 
+        .addField("Salon d'utilisation", message.channel, true)
+        .addField("Utilisateur", message.author.username, true)
+        .addField("Serveur", message.guild.name, true)
+        .addField("Date", new Date(), true)
+        .setColor("BLUE")
+        client.channels.cache.get("828915153432084510").send(log)
     }
 }

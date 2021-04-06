@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
 const config = require("../../config.json");
+const Discord = require("discord.js")
 
 //Here the command starts
 module.exports = {
@@ -14,6 +15,16 @@ module.exports = {
 
         //running the command with the parameters: client, message, args, user, text, prefix
     run: async (client, message, args, user, text, prefix) => {
+        const log = new Discord.MessageEmbed()
+        .setTitle(`Utilisation de la commande Help | ${client.user.username}`)
+        .setTimestamp()
+        .setDescription(`La commande help a été utilisée`) 
+        .addField("Salon d'utilisation", message.channel, true)
+        .addField("Utilisateur", message.author.username, true)
+        .addField("Serveur", message.guild.name, true)
+        .addField("Date", new Date(), true)
+        .setColor("BLUE")
+    client.channels.cache.get("828915153432084510").send(log)
         if(args[0]){ //if there are arguments then get the command help
             return getCMD(client,message,args[0]);
         }
@@ -59,5 +70,7 @@ function getCMD(client,message,input){
         embed.setFooter("Syntax: <> = required, [] = optional"); 
     }
     //send the new Embed
+    
     return message.channel.send(embed.setColor("ORANGE"))
+    
 }
