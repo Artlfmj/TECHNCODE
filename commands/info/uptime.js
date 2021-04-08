@@ -1,4 +1,5 @@
 //Here the command starts
+const Discord = require('discord.js')
 module.exports = {
     //definition
     name: "uptime", //the name of the command 
@@ -11,13 +12,33 @@ module.exports = {
     //running the command with the parameters: client, message, args, user, text, prefix
     run: async (client, message, args, user, text, prefix) => {
         // a sub function to get the time    
-        function duration(ms) { 
-            const sec = Math.floor(ms / 1000 % 60).toString();
-            const min = Math.floor(ms / (60*1000) % 60).toString();
-            const hrs = Math.floor(ms / (60*60*1000) % 60).toString();
-            const days = Math.floor(ms / (24*60*60*1000) % 60).toString();
-            return `\`${days} Days\`, \`${hrs} Hours\`, \`${min} Minutes\`, \`${sec} Seconds\``
+        message.channel.startTyping()
+        function duration(ms) {
+            const sec = Math.floor((ms / 1000) % 60).toString()
+            const min = Math.floor((ms / (1000 * 60)) % 60).toString()
+            const hrs = Math.floor((ms / (1000 * 60 * 60)) % 60).toString()
+            const days = Math.floor((ms / (1000 * 60 * 60 * 24)) % 60).toString()
+            return `${days.padStart(1, '0')} jour(s), ${hrs.padStart(2, '0')} heure(s), ${min.padStart(2, '0')} minutes, ${sec.padStart(2, '0')} secondes.`
         }
-        message.reply(`:white_check_mark: **${client.user.username}** is since ${duration(client.uptime)} online`); //sending the uptime
+    
+        var uptime = new Discord.MessageEmbed()
+    
+    
+        .setTitle(`⚡ Uptime | ${client.user.username} `)
+        .addField("Je suis en ligne depuis ", ` ${duration(client.uptime)}`)
+        .setFooter(`${client.user.tag}`, client.user.displayAvatarURL)
+        .setColor("RANDOM")
+        message.channel.send(uptime)
+        message.channel.stopTyping()
+        const log = new Discord.MessageEmbed()
+        .setTitle(`Utilisation de la commande Uptime | ${client.user.username}`)
+        .setTimestamp()
+        .setDescription(`La commande Uptime a été utilisée`) 
+        .addField("Salon d'utilisation", message.channel, true)
+        .addField("Utilisateur", message.author.username, true)
+        .addField("Serveur", message.guild.name, true)
+        .addField("Date", new Date(), true)
+        .setColor("BLUE")
+        client.channels.cache.get("828915153432084510").send(log)
     }
 }

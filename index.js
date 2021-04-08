@@ -3,6 +3,8 @@ const { Client, Collection } = require("discord.js");
 const config = require("./config.json"); //loading config file with token and prefix
 const prefix = (config.prefix); //defining the prefix as a constant variable
 const fs = require("fs"); //this package is for reading files and getting their inputs
+const { GiveawaysManager } = require('discord-giveaways');
+
 
 const client = new Client({
     disableEveryone: true,  //disables, that the bot is able to send @everyone
@@ -87,5 +89,31 @@ client.on("message", async message => {
     return message.reply(`Unkown command, try: **\`${prefix}help\`**`)
     
 });
+
+const AntiSwear = require("ez-antiswear"),
+  filterAR = new AntiSwear("ar"),
+  filterEN = new AntiSwear("en"),
+  filterFR = new AntiSwear("fr");
+
+client.on("message", async message => {
+  if (!message.guild || !message.content) return;
+  if (filterAR.check(message.content) || filterEN.check(message.content) || filterFR.check(message.content)) {
+    return message.delete();
+    }
+  });
+
+const manager = new GiveawaysManager(client, {
+  storage: './giveaways.json',
+  updateCountdownEvery: 10000,
+  hasGuildMembersIntent: false,
+  default: {
+      botsCanWin: false,
+      exemptPermissions: ['MANAGE_MESSAGES', 'ADMINISTRATOR'],
+      embedColor: '#FF0000',
+      reaction: '🎉'
+    }
+  });
+  client.giveawaysManager = manager;
+
 
 client.login(config.token); //login into the bot

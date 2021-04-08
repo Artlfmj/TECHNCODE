@@ -37,10 +37,10 @@ module.exports = {
 //function for getting all commands
 function getAll(client,message){
 const embed = new MessageEmbed() //defining the Embed
-    .setColor("ORANGE")
+    .setColor("DARK BLUE")
     .setThumbnail(client.user.displayAvatarURL())
-    .setTitle("HELP MENU")
-    .setFooter(`TO see command descriptions and inforamtion, type: ${config.prefix}help [CMD NAME]`, client.user.displayAvatarURL())
+    .setTitle("Menu d'aide")
+    .setFooter(`Pour voir plus d'informations sur une commande spécifique, écrivez: ${config.prefix}help [NOM DE LA COMMANDE]`, client.user.displayAvatarURL())
     const commands = (category) => { //finding all commands and listing them into a string with filter and map
         return client.commands.filter(cmd => cmd.category === category)
                 .map(cmd => `\`${cmd.name}\``).join(", ")
@@ -63,11 +63,11 @@ function getCMD(client,message,input){
     if(cmd.description) embed.addField("**Description**", `\`${cmd.description}\``);
 
     if(cmd.aliases) embed.addField("**Aliases**", `\`${cmd.aliases.map(a => `${a}`).join("\`, \`")}\``)
-    if(cmd.cooldown) embed.addField("**Cooldown**", `\`${cmd.cooldown} Seconds\``)
-        else embed.addField("**Cooldown**", `\`1 Second\``)
+    if(cmd.cooldown) embed.addField("**Cooldown**", `\`${cmd.cooldown} Secondes\``)
+        else embed.addField("**Cooldown**", `\`1 Seconde\``)
     if(cmd.usage){
         embed.addField("**Usage**", `\`${config.prefix}${cmd.usage}\``);
-        embed.setFooter("Syntax: <> = required, [] = optional"); 
+        embed.setFooter("Syntaxe: <> = required, [] = optional"); 
     }
     //send the new Embed
     
