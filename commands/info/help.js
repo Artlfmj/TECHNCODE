@@ -57,7 +57,7 @@ function getCMD(client,message,input){
     const embed = new MessageEmbed() //creating a new Embed
     const cmd = client.commands.get(input.toLowerCase()) || client.commands.get(client.aliases.get(input.toLowerCase())) //getting the command by name/alias
     if(!cmd){ //if no cmd found return info no infos!
-        return message.channel.send(embed.setColor("RED").setDescription(`No Information found for command **${input.toLowerCase()}**`));
+        return message.channel.send(embed.setColor("BLUE").setDescription(`No Information found for command **${input.toLowerCase()}**`));
     }
     if(cmd.name) embed.addField("**Command name**", `\`${cmd.name}\``)
     if(cmd.description) embed.addField("**Description**", `\`${cmd.description}\``);

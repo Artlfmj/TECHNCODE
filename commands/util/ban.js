@@ -12,7 +12,7 @@ module.exports = {
     //running the command with the parameters: client, message, args, user, text, prefix
     run: async (client, message, args, user, text, prefix) => {
         const attach = new Discord.MessageAttachment()
-        .setFile("../../data/ban.mp4")
+        .setFile("./commands/util/ban.mp4")
         message.channel.send(attach)
         const log = new Discord.MessageEmbed()
         .setTitle(`Utilisation de la commande ban | ${client.user.username}`)
